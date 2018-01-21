@@ -1,5 +1,6 @@
 .idea
-.gitignore
 .vs/
 packages
-
+CamVehicle/bin
+CamVehicle/obj
+CamVehicle/Properties
