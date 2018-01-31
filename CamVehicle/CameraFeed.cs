@@ -136,7 +136,7 @@ namespace CamVehicle
         private void btnCheck_Click(object sender, EventArgs e)
         {
             if (radioWeb.Checked)
-            {                
+            {
                 try
                 {
                     VideoCapture cap;

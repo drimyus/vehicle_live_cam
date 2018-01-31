@@ -116,16 +116,18 @@ namespace CamVehicle
                 if (Int32.TryParse(strCapFeed, out uCamID))
                 {
                     cap = VideoCapture.FromCamera(uCamID);
+                    uFps = 30;
                 }
             }
             else
             {
                 cap = VideoCapture.FromFile(strCapFeed);
+                uFps = (uint)cap.Get(CaptureProperty.Fps);
             }
 
             if (cap != null)
             {
-                uFps = (uint)cap.Get(CaptureProperty.Fps);
+                
                 uFrameWidth = (uint)cap.Get(CaptureProperty.FrameWidth);
                 uFrameHeight = (uint)cap.Get(CaptureProperty.FrameHeight);
 
