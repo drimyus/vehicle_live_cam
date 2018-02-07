@@ -49,10 +49,11 @@
             this.btnCamOpen = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.chkBoxDetect = new System.Windows.Forms.CheckBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.chkBoxDetectBlob = new System.Windows.Forms.CheckBox();
+            this.chkBoxDetectCascade = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -226,17 +227,6 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // chkBoxDetect
-            // 
-            this.chkBoxDetect.AutoSize = true;
-            this.chkBoxDetect.Location = new System.Drawing.Point(789, 44);
-            this.chkBoxDetect.Name = "chkBoxDetect";
-            this.chkBoxDetect.Size = new System.Drawing.Size(58, 17);
-            this.chkBoxDetect.TabIndex = 13;
-            this.chkBoxDetect.Text = "Detect";
-            this.chkBoxDetect.UseVisualStyleBackColor = true;
-            this.chkBoxDetect.CheckedChanged += new System.EventHandler(this.chkBoxDetect_CheckedChanged);
-            // 
             // listView2
             // 
             this.listView2.Location = new System.Drawing.Point(1064, 79);
@@ -263,15 +253,38 @@
             this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             // 
+            // chkBoxDetectBlob
+            // 
+            this.chkBoxDetectBlob.AutoSize = true;
+            this.chkBoxDetectBlob.Location = new System.Drawing.Point(920, 44);
+            this.chkBoxDetectBlob.Name = "chkBoxDetectBlob";
+            this.chkBoxDetectBlob.Size = new System.Drawing.Size(79, 17);
+            this.chkBoxDetectBlob.TabIndex = 17;
+            this.chkBoxDetectBlob.Text = "DetectBlob";
+            this.chkBoxDetectBlob.UseVisualStyleBackColor = true;
+            this.chkBoxDetectBlob.CheckedChanged += new System.EventHandler(this.chkBoxDetectBlob_CheckedChanged);
+            // 
+            // chkBoxDetectCascade
+            // 
+            this.chkBoxDetectCascade.AutoSize = true;
+            this.chkBoxDetectCascade.Location = new System.Drawing.Point(789, 44);
+            this.chkBoxDetectCascade.Name = "chkBoxDetectCascade";
+            this.chkBoxDetectCascade.Size = new System.Drawing.Size(100, 17);
+            this.chkBoxDetectCascade.TabIndex = 13;
+            this.chkBoxDetectCascade.Text = "DetectCascade";
+            this.chkBoxDetectCascade.UseVisualStyleBackColor = true;
+            this.chkBoxDetectCascade.CheckedChanged += new System.EventHandler(this.chkBoxDetectCascade_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1225, 639);
+            this.Controls.Add(this.chkBoxDetectBlob);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.chkBoxDetect);
+            this.Controls.Add(this.chkBoxDetectCascade);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnCamOpen);
             this.Controls.Add(this.btnVideoOpen);
@@ -284,6 +297,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "CamVehicle";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -317,10 +332,11 @@
         private System.Windows.Forms.Button btnVideoOpen;
         private System.Windows.Forms.Button btnCamOpen;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.CheckBox chkBoxDetect;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.CheckBox chkBoxDetectBlob;
+        private System.Windows.Forms.CheckBox chkBoxDetectCascade;
     }
 }
 

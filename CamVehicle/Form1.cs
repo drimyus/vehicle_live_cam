@@ -6,6 +6,7 @@ using OpenCvSharp;
 using System.Diagnostics;
 using System.Drawing;
 using OpenCvSharp.Extensions;
+using System.Collections.Generic;
 
 namespace CamVehicle
 {
@@ -17,7 +18,7 @@ namespace CamVehicle
         Mat matFrame;
         Mat matToShow;
 
-        bool bSave, bDetect;
+        bool bSave, bDetectCascade, bDetectBlob;
         string strCapType, strCapFeed;
 
         CameraFeed camFeed = new CameraFeed();
@@ -34,13 +35,15 @@ namespace CamVehicle
             cap = new VideoCapture();
 
             bSave = false;
-            bDetect = false;
+            bDetectCascade = false;
+            bDetectBlob = false;
+
 
             matFrame = new Mat();
             matToShow = new Mat();
 
             // default background image    
-            string strBckImgPath = @"../../res/background.jpg";
+            string strBckImgPath = @"../res/background.jpg";
             if (File.Exists(strBckImgPath)){
                 showImage(Cv2.ImRead(strBckImgPath));}
             else{
@@ -49,8 +52,8 @@ namespace CamVehicle
             // List View Images
             try
             {
-                imageList.Images.Add(Bitmap.FromFile(@"../../res/video.bmp"));
-                imageList.Images.Add(Bitmap.FromFile(@"../../res/camera.bmp"));
+                imageList.Images.Add(Bitmap.FromFile(@"../res/video.bmp"));
+                imageList.Images.Add(Bitmap.FromFile(@"../res/camera.bmp"));
 
             }catch (Exception) {
                 MessageBox.Show("Cannot load icon images for list view");  }
@@ -105,7 +108,11 @@ namespace CamVehicle
             if (cap != null) cap.Dispose();
             camFeed.ShowDialog();
             strCapFeed = camFeed.getCamFeed();
-            if (strCapFeed.Length == 1)
+            if (strCapFeed == "")
+            {
+                return;
+            }
+            else if (strCapFeed.Length == 1)
             {
                 int uCamID;
                 if (Int32.TryParse(strCapFeed, out uCamID)){
@@ -184,24 +191,43 @@ namespace CamVehicle
         }
 
 
-        private void chkBoxDetect_CheckedChanged(object sender, EventArgs e){
-            bDetect = chkBoxDetect.Checked;
-        }        
+        private void chkBoxDetectCascade_CheckedChanged(object sender, EventArgs e){
+            bDetectCascade = chkBoxDetectCascade.Checked;
+            if (bDetectCascade && bDetectBlob)
+            {
+                bDetectBlob = !bDetectCascade;
+                chkBoxDetectBlob.Checked = bDetectBlob;
+            }
+        }
+
+        private void chkBoxDetectBlob_CheckedChanged(object sender, EventArgs e)
+        {
+            bDetectBlob = chkBoxDetectBlob.Checked;
+            if (bDetectCascade && bDetectBlob)
+            {
+                bDetectCascade = !bDetectBlob;
+                chkBoxDetectCascade.Checked = bDetectCascade;
+            }
+                    
+        
+        }
+
         // ***
 
-        private Mat drawtCars(Mat matFrame, Rect[] cars)
+        private Mat drawtCars(Mat matFrame, List<Rect> cars)
         {
             var rnd = new Random();
             var count = 1;
-            foreach (var carRect in cars)
+            for (int i=0; i < cars.Count; i++)
             {
+                var carRect = cars[i];
                 var color = Scalar.FromRgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
                 Cv2.Rectangle(matFrame, carRect, new Scalar(255, 255, 0), 2);
                 count++;
             }
             return matFrame;
         }
-        
+
 
         // *** Timer event
         private void timer_Tick(object sender, EventArgs e)
@@ -210,9 +236,13 @@ namespace CamVehicle
             try                 
             {
                 cap.Read(matFrame);
-                if (bDetect)
+                if (bDetectCascade)
                 {                                     
                     showImage(drawtCars(matFrame, detector.proc(matFrame)));
+                }
+                if (bDetectBlob)
+                {
+                    showImage(drawtCars(matFrame, detector.proc2(matFrame)));                        
                 }
                 else { showImage(matFrame); }
                     
