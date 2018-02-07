@@ -34,7 +34,7 @@ namespace CamVehicle
             strProtocal = "rtsp";
             strUserName = "admin";
             strPassword = "admin";
-            strIP = "192.168.1.155";
+            strIP = txtBoxIPAddress.Text; // "192.168.1.141";
             strPort = "554";            
             strChannel = "1";
             strSubType = "0";
@@ -142,10 +142,21 @@ namespace CamVehicle
                     VideoCapture cap;
                     cap = VideoCapture.FromCamera(uSelectedCam);
                     int uFrameWidth = (int)cap.Get(CaptureProperty.FrameWidth);
+                    
                     cap.Dispose();
+                    if (uFrameWidth == 0)
+                    {
+                        MessageBox.Show("Cannot Connect WebCamera " + strCamFeed + "!");
+                        strCamFeed = "";
+                    }
+                    else
+                    {
+                        lblCamerFeed.Text = "Success! Web Camera ID: " + uSelectedCam.ToString();
+                        strCamFeed = uSelectedCam.ToString();
+                    }
 
-                    lblCamerFeed.Text = "Success! Web Camera ID: " + uSelectedCam.ToString();
-                    strCamFeed = uSelectedCam.ToString();
+
+                    
                 }
                 catch (Exception ex){
                     MessageBox.Show("Cannot Connect WebCamera " + strCamFeed + "!");
@@ -161,12 +172,19 @@ namespace CamVehicle
                     strCamFeed = strProtocal + "://" + strUserName + ":" + strPassword + "@" + strIP + ":" + strPort + "/cam/realmonitor?" + "channel=" + strChannel + "&" + "subtype=" + strSubType;
 
                     VideoCapture cap;
-                    cap = VideoCapture.FromFile(strCamFeed);
-                    cap = VideoCapture.FromCamera(uSelectedCam);
+                    cap = VideoCapture.FromFile(strCamFeed);                    
                     int uFrameWidth = (int)cap.Get(CaptureProperty.FrameWidth);
                     cap.Dispose();
 
-                    lblCamerFeed.Text = "Success! IP Camera Address: " + strIP;
+                    if (uFrameWidth == 0)
+                    {
+                        MessageBox.Show("Cannot Connect WebCamera " + strIP + "!");
+                        strCamFeed = "";
+                    }
+                    else
+                    {
+                        lblCamerFeed.Text = "Success! IP Camera Address: " + strIP;
+                    }
                 }
                 catch (Exception ex)
                 {

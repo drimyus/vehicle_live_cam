@@ -124,7 +124,7 @@
             this.txtBoxIPAddress.Name = "txtBoxIPAddress";
             this.txtBoxIPAddress.Size = new System.Drawing.Size(92, 20);
             this.txtBoxIPAddress.TabIndex = 10;
-            this.txtBoxIPAddress.Text = "192.168.1.139";
+            this.txtBoxIPAddress.Text = "192.168.1.141";
             this.txtBoxIPAddress.TextChanged += new System.EventHandler(this.txtBoxIPAddress_TextChanged);
             // 
             // label3

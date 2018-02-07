@@ -13,16 +13,16 @@ namespace CamVehicle
     {
         VideoCapture cap;
         uint uFps, uFrameWidth, uFrameHeight;
-
-        Bitmap bmpImg;
+       
         Mat matFrame;
+        Mat matToShow;
 
         bool bSave, bDetect;
+        string strCapType, strCapFeed;
 
         CameraFeed camFeed = new CameraFeed();
         ImageList imageList = new ImageList();
-
-        string strCapType, strCapFeed;
+        Detector detector = new Detector();
 
         public Form1()
         {
@@ -37,9 +37,10 @@ namespace CamVehicle
             bDetect = false;
 
             matFrame = new Mat();
+            matToShow = new Mat();
 
             // default background image    
-            string strBckImgPath = "../../res/background.jpg";
+            string strBckImgPath = @"../../res/background.jpg";
             if (File.Exists(strBckImgPath)){
                 showImage(Cv2.ImRead(strBckImgPath));}
             else{
@@ -49,7 +50,7 @@ namespace CamVehicle
             try
             {
                 imageList.Images.Add(Bitmap.FromFile(@"../../res/video.bmp"));
-                imageList.Images.Add(Bitmap.FromFile(@"../../res/camera.bmp"));                
+                imageList.Images.Add(Bitmap.FromFile(@"../../res/camera.bmp"));
 
             }catch (Exception) {
                 MessageBox.Show("Cannot load icon images for list view");  }
@@ -60,15 +61,9 @@ namespace CamVehicle
 
         private void showImage(Mat cvImg)
         {
-            int w = pictureBox1.Width;
-            int h = pictureBox1.Height;
+            Cv2.Resize(cvImg, matToShow, new OpenCvSharp.Size(pictureBox1.Width, pictureBox1.Height));
 
-            Mat cvRsz = new Mat();
-            Cv2.Resize(cvImg, cvRsz, new OpenCvSharp.Size(w, h));
-
-            bmpImg = BitmapConverter.ToBitmap(cvRsz);
-            pictureBox1.Image = bmpImg;
-            this.Update();
+            pictureBox1.Image = BitmapConverter.ToBitmap(matToShow);            
         }
 
         // Load Video
@@ -113,16 +108,12 @@ namespace CamVehicle
             if (strCapFeed.Length == 1)
             {
                 int uCamID;
-                if (Int32.TryParse(strCapFeed, out uCamID))
-                {
-                    cap = VideoCapture.FromCamera(uCamID);
-                    uFps = 30;
-                }
+                if (Int32.TryParse(strCapFeed, out uCamID)){
+                    cap = VideoCapture.FromCamera(uCamID);}
             }
             else
             {
-                cap = VideoCapture.FromFile(strCapFeed);
-                uFps = (uint)cap.Get(CaptureProperty.Fps);
+                cap = VideoCapture.FromFile(strCapFeed);                
             }
 
             if (cap != null)
@@ -130,6 +121,8 @@ namespace CamVehicle
                 
                 uFrameWidth = (uint)cap.Get(CaptureProperty.FrameWidth);
                 uFrameHeight = (uint)cap.Get(CaptureProperty.FrameHeight);
+                uFps = (uint)cap.Get(CaptureProperty.Fps);
+                if (uFps == 0) { uFps = 30; }
 
                 strCapType = "Camera";
             }
@@ -150,10 +143,7 @@ namespace CamVehicle
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string path = openFileDialog.FileName;
-                    
-                Mat matImg = Cv2.ImRead(path);
-                Bitmap bmpImage = BitmapConverter.ToBitmap(matImg);
-                pictureBox1.Image = bmpImage;
+                pictureBox1.Image = BitmapConverter.ToBitmap(Cv2.ImRead(path));
 
                 Console.WriteLine(path);
             }
@@ -195,10 +185,22 @@ namespace CamVehicle
 
 
         private void chkBoxDetect_CheckedChanged(object sender, EventArgs e){
-            bDetect = chkBoxSave.Checked;
+            bDetect = chkBoxDetect.Checked;
         }        
         // ***
 
+        private Mat drawtCars(Mat matFrame, Rect[] cars)
+        {
+            var rnd = new Random();
+            var count = 1;
+            foreach (var carRect in cars)
+            {
+                var color = Scalar.FromRgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+                Cv2.Rectangle(matFrame, carRect, new Scalar(255, 255, 0), 2);
+                count++;
+            }
+            return matFrame;
+        }
         
 
         // *** Timer event
@@ -206,12 +208,19 @@ namespace CamVehicle
         {
             // main process
             try                 
-            {                
-                cap.Read(matFrame);
-                showImage(matFrame);
-            }
-            catch (Exception)
             {
+                cap.Read(matFrame);
+                if (bDetect)
+                {                                     
+                    showImage(drawtCars(matFrame, detector.proc(matFrame)));
+                }
+                else { showImage(matFrame); }
+                    
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
                 btnStop.Enabled = false;
                 btnStart.Enabled = true;
                 if (timer.Enabled == true) timer.Enabled = false;

@@ -52,8 +52,10 @@
             this.chkBoxDetect = new System.Windows.Forms.CheckBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -63,7 +65,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(962, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1225, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -111,9 +113,9 @@
             // btnStart
             // 
             this.btnStart.Image = ((System.Drawing.Image)(resources.GetObject("btnStart.Image")));
-            this.btnStart.Location = new System.Drawing.Point(12, 365);
+            this.btnStart.Location = new System.Drawing.Point(555, 27);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(56, 40);
+            this.btnStart.Size = new System.Drawing.Size(56, 46);
             this.btnStart.TabIndex = 3;
             this.btnStart.Text = "Start";
             this.btnStart.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -123,9 +125,9 @@
             // btnStop
             // 
             this.btnStop.Image = ((System.Drawing.Image)(resources.GetObject("btnStop.Image")));
-            this.btnStop.Location = new System.Drawing.Point(70, 365);
+            this.btnStop.Location = new System.Drawing.Point(613, 27);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(56, 40);
+            this.btnStop.Size = new System.Drawing.Size(56, 46);
             this.btnStop.TabIndex = 4;
             this.btnStop.Text = "Stop";
             this.btnStop.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -135,7 +137,7 @@
             // chkBoxSave
             // 
             this.chkBoxSave.AutoSize = true;
-            this.chkBoxSave.Location = new System.Drawing.Point(12, 417);
+            this.chkBoxSave.Location = new System.Drawing.Point(716, 44);
             this.chkBoxSave.Name = "chkBoxSave";
             this.chkBoxSave.Size = new System.Drawing.Size(51, 17);
             this.chkBoxSave.TabIndex = 5;
@@ -146,9 +148,9 @@
             // btnAddList
             // 
             this.btnAddList.Image = ((System.Drawing.Image)(resources.GetObject("btnAddList.Image")));
-            this.btnAddList.Location = new System.Drawing.Point(191, 28);
+            this.btnAddList.Location = new System.Drawing.Point(194, 27);
             this.btnAddList.Name = "btnAddList";
-            this.btnAddList.Size = new System.Drawing.Size(56, 40);
+            this.btnAddList.Size = new System.Drawing.Size(56, 46);
             this.btnAddList.TabIndex = 6;
             this.btnAddList.Text = "Add";
             this.btnAddList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -160,7 +162,7 @@
             this.btnRemoveList.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveList.Image")));
             this.btnRemoveList.Location = new System.Drawing.Point(253, 27);
             this.btnRemoveList.Name = "btnRemoveList";
-            this.btnRemoveList.Size = new System.Drawing.Size(56, 40);
+            this.btnRemoveList.Size = new System.Drawing.Size(56, 46);
             this.btnRemoveList.TabIndex = 7;
             this.btnRemoveList.Text = "Remove";
             this.btnRemoveList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -170,9 +172,9 @@
             // btnEditList
             // 
             this.btnEditList.Image = ((System.Drawing.Image)(resources.GetObject("btnEditList.Image")));
-            this.btnEditList.Location = new System.Drawing.Point(315, 28);
+            this.btnEditList.Location = new System.Drawing.Point(311, 27);
             this.btnEditList.Name = "btnEditList";
-            this.btnEditList.Size = new System.Drawing.Size(56, 40);
+            this.btnEditList.Size = new System.Drawing.Size(56, 46);
             this.btnEditList.TabIndex = 8;
             this.btnEditList.Text = "Edit";
             this.btnEditList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -182,9 +184,9 @@
             // btnVideoOpen
             // 
             this.btnVideoOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnVideoOpen.Image")));
-            this.btnVideoOpen.Location = new System.Drawing.Point(12, 28);
+            this.btnVideoOpen.Location = new System.Drawing.Point(12, 27);
             this.btnVideoOpen.Name = "btnVideoOpen";
-            this.btnVideoOpen.Size = new System.Drawing.Size(56, 40);
+            this.btnVideoOpen.Size = new System.Drawing.Size(56, 46);
             this.btnVideoOpen.TabIndex = 9;
             this.btnVideoOpen.Text = "Video";
             this.btnVideoOpen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -194,9 +196,9 @@
             // btnCamOpen
             // 
             this.btnCamOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnCamOpen.Image")));
-            this.btnCamOpen.Location = new System.Drawing.Point(70, 28);
+            this.btnCamOpen.Location = new System.Drawing.Point(70, 27);
             this.btnCamOpen.Name = "btnCamOpen";
-            this.btnCamOpen.Size = new System.Drawing.Size(56, 40);
+            this.btnCamOpen.Size = new System.Drawing.Size(56, 46);
             this.btnCamOpen.TabIndex = 10;
             this.btnCamOpen.Text = "Camera";
             this.btnCamOpen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -206,9 +208,9 @@
             // button7
             // 
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
-            this.button7.Location = new System.Drawing.Point(435, 28);
+            this.button7.Location = new System.Drawing.Point(440, 27);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(56, 40);
+            this.button7.Size = new System.Drawing.Size(56, 46);
             this.button7.TabIndex = 12;
             this.button7.Text = "View";
             this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -218,16 +220,16 @@
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(132, 73);
+            this.pictureBox1.Location = new System.Drawing.Point(132, 79);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(663, 381);
+            this.pictureBox1.Size = new System.Drawing.Size(926, 548);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // chkBoxDetect
             // 
             this.chkBoxDetect.AutoSize = true;
-            this.chkBoxDetect.Location = new System.Drawing.Point(12, 437);
+            this.chkBoxDetect.Location = new System.Drawing.Point(789, 44);
             this.chkBoxDetect.Name = "chkBoxDetect";
             this.chkBoxDetect.Size = new System.Drawing.Size(58, 17);
             this.chkBoxDetect.TabIndex = 13;
@@ -237,25 +239,36 @@
             // 
             // listView2
             // 
-            this.listView2.Location = new System.Drawing.Point(801, 74);
+            this.listView2.Location = new System.Drawing.Point(1064, 79);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(149, 380);
+            this.listView2.Size = new System.Drawing.Size(149, 548);
             this.listView2.TabIndex = 14;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(12, 74);
+            this.listView1.Location = new System.Drawing.Point(12, 79);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(114, 285);
+            this.listView1.Size = new System.Drawing.Size(114, 426);
             this.listView1.TabIndex = 15;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(12, 511);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(114, 116);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 16;
+            this.pictureBox2.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 465);
+            this.ClientSize = new System.Drawing.Size(1225, 639);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.chkBoxDetect);
@@ -277,6 +290,7 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -306,6 +320,7 @@
         private System.Windows.Forms.CheckBox chkBoxDetect;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
