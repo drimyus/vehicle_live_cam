@@ -13,6 +13,7 @@ namespace CamVehicle
     public partial class Form1 : Form
     {
         VideoCapture cap;
+        VideoWriter saver;
         uint uFps, uFrameWidth, uFrameHeight;
        
         Mat matFrame;
@@ -24,6 +25,12 @@ namespace CamVehicle
         CameraFeed camFeed = new CameraFeed();
         ImageList imageList = new ImageList();
         Detector detector = new Detector();
+        Settings setting = new Settings();
+
+        System.Drawing.Size minSize;
+        Color colorRect;
+
+        string strSavePath;
 
         public Form1()
         {
@@ -32,7 +39,7 @@ namespace CamVehicle
             uFrameHeight = 0;
             uFrameWidth = 0;
 
-            cap = new VideoCapture();
+            cap = new VideoCapture();            
 
             bSave = false;
             bDetectCascade = false;
@@ -60,6 +67,11 @@ namespace CamVehicle
 
             listView1.View = View.LargeIcon;
             listView1.LargeImageList = imageList;
+
+            minSize = new System.Drawing.Size(0, 0);
+            colorRect = Color.FromArgb(255, 255, 0, 0);
+
+            strCapFeed = "";
         }
 
         private void showImage(Mat cvImg)
@@ -71,10 +83,10 @@ namespace CamVehicle
 
         // Load Video
         private void LoadVideo()
-        {
-            if (cap != null) cap.Dispose();
+        {           
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                if (cap != null) cap.Dispose();
                 // create the video capture
                 string path = openFileDialog.FileName;
                 cap = VideoCapture.FromFile(path);
@@ -90,6 +102,7 @@ namespace CamVehicle
                 strCapType = "Video";
                 strCapFeed = path;
             }
+            Log_Print("Manual Device", "Video", "Opening", "", "", "");
         }
 
         private void loadVideoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -104,8 +117,7 @@ namespace CamVehicle
 
         // Load Camera
         private void LoadCamera()
-        {
-            if (cap != null) cap.Dispose();
+        {            
             camFeed.ShowDialog();
             strCapFeed = camFeed.getCamFeed();
             if (strCapFeed == "")
@@ -114,13 +126,18 @@ namespace CamVehicle
             }
             else if (strCapFeed.Length == 1)
             {
+                if (cap != null) cap.Dispose();
                 int uCamID;
                 if (Int32.TryParse(strCapFeed, out uCamID)){
-                    cap = VideoCapture.FromCamera(uCamID);}
+                    cap = VideoCapture.FromCamera(uCamID);
+                    
+                }
+                
             }
             else
             {
-                cap = VideoCapture.FromFile(strCapFeed);                
+                if (cap != null) cap.Dispose();
+                cap = VideoCapture.FromFile(strCapFeed);
             }
 
             if (cap != null)
@@ -132,7 +149,9 @@ namespace CamVehicle
                 if (uFps == 0) { uFps = 30; }
 
                 strCapType = "Camera";
+                Log_Print("Manual Device", "Camera", "Opening", "", "", "");
             }
+            
         }
         private void loadIPCamToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -143,6 +162,8 @@ namespace CamVehicle
         {
             LoadCamera();
         }
+
+
 
         private void loadImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -160,18 +181,38 @@ namespace CamVehicle
         // *** Start and Stop Button ---------------------------------------------------------------
         private void btnStart_Click(object sender, EventArgs e)
         {            
-            if (cap != null)
+            if (cap != null && strCapFeed != "")
             {
+                if (bSave)
+                {
+                    saver = new VideoWriter(strSavePath, FourCC.DIVX, (double)uFps, new OpenCvSharp.Size((double)uFrameWidth, (double)uFrameHeight));
+                }
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
 
                 timer.Interval = (int)(1000 / uFps);
                 timer.Enabled = true;
+
+                Log_Print("Manual Device", strCapType, "start", "", "", "");
             }
             else
             {
                 MessageBox.Show("There is no connected video feed!");
+                Log_Print("Manual Device", strCapType, "failed", "", "", "");
             }
+        }
+
+        private void Log_Print(string strChannel, string strFeedType="", string strEvent="", string strOrigin="", string strRule="", string strObjID="")
+        {
+            ListViewItem item = new ListViewItem(strChannel);
+            item.SubItems.Add(strFeedType);
+            item.SubItems.Add(strEvent);
+            item.SubItems.Add(strOrigin);
+            item.SubItems.Add(strRule);            
+            item.SubItems.Add(DateTime.Now.ToString("yyyy_MM_dd-H_mm_ss"));
+            item.SubItems.Add(strObjID);
+
+            listView2.Items.Add(item);
         }
         private void btnStop_Click(object sender, EventArgs e)
         {
@@ -180,54 +221,87 @@ namespace CamVehicle
 
             timer.Enabled = false;
 
+            if (bSave)
+            {
+                saver.Release();
+                Log_Print("Manual Device", strCapType, "saved", "", "", "");
+            }
+            Log_Print("Manual Device", strCapType, "stopped", "", "", "");
         }
 
 
         // ***
 
-        // *** CheckBox for Save and Detecting -----------------------------------------------------
-        private void chkBoxSave_CheckedChanged(object sender, EventArgs e){
-            bSave = chkBoxSave.Checked;
-        }
-
-
-        private void chkBoxDetectCascade_CheckedChanged(object sender, EventArgs e){
-            bDetectCascade = chkBoxDetectCascade.Checked;
-            if (bDetectCascade && bDetectBlob)
-            {
-                bDetectBlob = !bDetectCascade;
-                chkBoxDetectBlob.Checked = bDetectBlob;
-            }
-        }
-
-        private void chkBoxDetectBlob_CheckedChanged(object sender, EventArgs e)
-        {
-            bDetectBlob = chkBoxDetectBlob.Checked;
-            if (bDetectCascade && bDetectBlob)
-            {
-                bDetectCascade = !bDetectBlob;
-                chkBoxDetectCascade.Checked = bDetectCascade;
-            }
-                    
         
-        }
 
-        // ***
-
-        private Mat drawtCars(Mat matFrame, List<Rect> cars)
+        private Mat drawCars(Mat matFrame, List<Rect> cars)
         {
             var rnd = new Random();
             var count = 1;
             for (int i=0; i < cars.Count; i++)
             {
-                var carRect = cars[i];
-                var color = Scalar.FromRgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
-                Cv2.Rectangle(matFrame, carRect, new Scalar(255, 255, 0), 2);
-                count++;
+                var carRect = cars[i];                
+                if (carRect.Width > minSize.Width && carRect.Height > minSize.Height)
+                {
+                    Cv2.Rectangle(matFrame, carRect, new Scalar(colorRect.B, colorRect.G, colorRect.R), 2);
+                    count++;
+                }                
             }
+
+            Log_Print("Manual Device", strCapType, "detecting", "", "", count.ToString() + "detected");
             return matFrame;
         }
 
+
+        private void LoadSettings()
+        {
+            bSave = setting.get_bSaveChecked();
+            strSavePath = setting.get_strSavePath();
+            
+            var detectMode = setting.get_bDetectMode();
+            switch (detectMode) {
+                case 0:
+                    bDetectBlob = false;
+                    bDetectCascade = false;
+                    break;
+                case 1:
+                    bDetectBlob = false;
+                    bDetectCascade = true;
+                    break;
+                case 2:
+                    bDetectBlob = true;
+                    bDetectCascade = false;
+                    break;
+                default:
+                    break;
+            }
+
+            minSize = setting.get_MinSize();
+
+            colorRect = setting.get_ColorRect();
+
+
+        }
+
+        // *** CheckBox for Save and Detecting -----------------------------------------------------
+        
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            setting.ShowDialog();
+            LoadSettings();            
+        }
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setting.ShowDialog();
+            LoadSettings();            
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+       
 
         // *** Timer event
         private void timer_Tick(object sender, EventArgs e)
@@ -238,13 +312,19 @@ namespace CamVehicle
                 cap.Read(matFrame);
                 if (bDetectCascade)
                 {                                     
-                    showImage(drawtCars(matFrame, detector.proc(matFrame)));
+                    showImage(drawCars(matFrame, detector.proc(matFrame)));
                 }
                 if (bDetectBlob)
                 {
-                    showImage(drawtCars(matFrame, detector.proc2(matFrame)));                        
+                    showImage(drawCars(matFrame, detector.proc2(matFrame)));                        
                 }
                 else { showImage(matFrame); }
+
+                if (bSave)
+                {
+                    saver.Write(matFrame);
+                }
+
                     
             }
             catch (Exception ex)
@@ -254,8 +334,18 @@ namespace CamVehicle
                 btnStop.Enabled = false;
                 btnStart.Enabled = true;
                 if (timer.Enabled == true) timer.Enabled = false;
-                if (cap != null) cap.Dispose();
-                //MessageBox.Show("Can't read frame!");
+
+                if (strCapFeed != "" && cap != null)
+                {
+                    cap.Set(CaptureProperty.PosFrames, 0);
+                    cap.Read(matFrame);
+                }
+                else
+                {
+                    MessageBox.Show("Can't read frame!");
+                    Log_Print("Manual Device", strCapType, "disconnected", "", "", "");
+                    cap.Dispose();
+                }
             }
 
         }

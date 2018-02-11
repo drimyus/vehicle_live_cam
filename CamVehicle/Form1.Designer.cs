@@ -35,13 +35,12 @@
             this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadIPCamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.chkBoxSave = new System.Windows.Forms.CheckBox();
             this.btnAddList = new System.Windows.Forms.Button();
             this.btnRemoveList = new System.Windows.Forms.Button();
             this.btnEditList = new System.Windows.Forms.Button();
@@ -52,8 +51,14 @@
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.chkBoxDetectBlob = new System.Windows.Forms.CheckBox();
-            this.chkBoxDetectCascade = new System.Windows.Forms.CheckBox();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -63,7 +68,8 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.settingToolStripMenuItem,
+            this.helpToolStripMenuItem1});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1225, 24);
@@ -101,11 +107,19 @@
             this.loadImageToolStripMenuItem.Text = "Load Image";
             this.loadImageToolStripMenuItem.Click += new System.EventHandler(this.loadImageToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
+            // settingToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingToolStripMenuItem.Text = "Settings";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem1.Text = "Help";
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // timer
             // 
@@ -135,21 +149,10 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // chkBoxSave
-            // 
-            this.chkBoxSave.AutoSize = true;
-            this.chkBoxSave.Location = new System.Drawing.Point(716, 44);
-            this.chkBoxSave.Name = "chkBoxSave";
-            this.chkBoxSave.Size = new System.Drawing.Size(51, 17);
-            this.chkBoxSave.TabIndex = 5;
-            this.chkBoxSave.Text = "Save";
-            this.chkBoxSave.UseVisualStyleBackColor = true;
-            this.chkBoxSave.CheckedChanged += new System.EventHandler(this.chkBoxSave_CheckedChanged);
-            // 
             // btnAddList
             // 
             this.btnAddList.Image = ((System.Drawing.Image)(resources.GetObject("btnAddList.Image")));
-            this.btnAddList.Location = new System.Drawing.Point(194, 27);
+            this.btnAddList.Location = new System.Drawing.Point(245, 27);
             this.btnAddList.Name = "btnAddList";
             this.btnAddList.Size = new System.Drawing.Size(56, 46);
             this.btnAddList.TabIndex = 6;
@@ -161,7 +164,7 @@
             // btnRemoveList
             // 
             this.btnRemoveList.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveList.Image")));
-            this.btnRemoveList.Location = new System.Drawing.Point(253, 27);
+            this.btnRemoveList.Location = new System.Drawing.Point(305, 27);
             this.btnRemoveList.Name = "btnRemoveList";
             this.btnRemoveList.Size = new System.Drawing.Size(56, 46);
             this.btnRemoveList.TabIndex = 7;
@@ -173,7 +176,7 @@
             // btnEditList
             // 
             this.btnEditList.Image = ((System.Drawing.Image)(resources.GetObject("btnEditList.Image")));
-            this.btnEditList.Location = new System.Drawing.Point(311, 27);
+            this.btnEditList.Location = new System.Drawing.Point(363, 27);
             this.btnEditList.Name = "btnEditList";
             this.btnEditList.Size = new System.Drawing.Size(56, 46);
             this.btnEditList.TabIndex = 8;
@@ -209,7 +212,7 @@
             // button7
             // 
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
-            this.button7.Location = new System.Drawing.Point(440, 27);
+            this.button7.Location = new System.Drawing.Point(456, 27);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(56, 46);
             this.button7.TabIndex = 12;
@@ -223,79 +226,110 @@
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(132, 79);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(926, 548);
+            this.pictureBox1.Size = new System.Drawing.Size(702, 426);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // listView2
             // 
-            this.listView2.Location = new System.Drawing.Point(1064, 79);
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader7,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView2.Location = new System.Drawing.Point(840, 79);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(149, 548);
+            this.listView2.Size = new System.Drawing.Size(373, 426);
             this.listView2.TabIndex = 14;
             this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
             // 
             // listView1
             // 
             this.listView1.Location = new System.Drawing.Point(12, 79);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(114, 426);
+            this.listView1.Size = new System.Drawing.Size(114, 304);
             this.listView1.TabIndex = 15;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(12, 511);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 389);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(114, 116);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             // 
-            // chkBoxDetectBlob
+            // btnSetting
             // 
-            this.chkBoxDetectBlob.AutoSize = true;
-            this.chkBoxDetectBlob.Location = new System.Drawing.Point(920, 44);
-            this.chkBoxDetectBlob.Name = "chkBoxDetectBlob";
-            this.chkBoxDetectBlob.Size = new System.Drawing.Size(79, 17);
-            this.chkBoxDetectBlob.TabIndex = 17;
-            this.chkBoxDetectBlob.Text = "DetectBlob";
-            this.chkBoxDetectBlob.UseVisualStyleBackColor = true;
-            this.chkBoxDetectBlob.CheckedChanged += new System.EventHandler(this.chkBoxDetectBlob_CheckedChanged);
+            this.btnSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting.Image")));
+            this.btnSetting.Location = new System.Drawing.Point(158, 27);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(56, 46);
+            this.btnSetting.TabIndex = 18;
+            this.btnSetting.Text = "Settings";
+            this.btnSetting.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSetting.UseVisualStyleBackColor = true;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
-            // chkBoxDetectCascade
+            // columnHeader1
             // 
-            this.chkBoxDetectCascade.AutoSize = true;
-            this.chkBoxDetectCascade.Location = new System.Drawing.Point(789, 44);
-            this.chkBoxDetectCascade.Name = "chkBoxDetectCascade";
-            this.chkBoxDetectCascade.Size = new System.Drawing.Size(100, 17);
-            this.chkBoxDetectCascade.TabIndex = 13;
-            this.chkBoxDetectCascade.Text = "DetectCascade";
-            this.chkBoxDetectCascade.UseVisualStyleBackColor = true;
-            this.chkBoxDetectCascade.CheckedChanged += new System.EventHandler(this.chkBoxDetectCascade_CheckedChanged);
+            this.columnHeader1.Text = "Channel";
+            this.columnHeader1.Width = 67;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 69;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Origin";
+            this.columnHeader3.Width = 66;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Rule Name";
+            this.columnHeader4.Width = 75;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Time";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Object ID";
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.DisplayIndex = 6;
+            this.columnHeader7.Text = "Event";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1225, 639);
-            this.Controls.Add(this.chkBoxDetectBlob);
+            this.ClientSize = new System.Drawing.Size(1225, 513);
+            this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.chkBoxDetectCascade);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnCamOpen);
             this.Controls.Add(this.btnVideoOpen);
             this.Controls.Add(this.btnEditList);
             this.Controls.Add(this.btnRemoveList);
             this.Controls.Add(this.btnAddList);
-            this.Controls.Add(this.chkBoxSave);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -317,15 +351,13 @@
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadIPCamToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem loadImageToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.CheckBox chkBoxSave;
         private System.Windows.Forms.Button btnAddList;
         private System.Windows.Forms.Button btnRemoveList;
         private System.Windows.Forms.Button btnEditList;
@@ -335,8 +367,15 @@
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.CheckBox chkBoxDetectBlob;
-        private System.Windows.Forms.CheckBox chkBoxDetectCascade;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }
 

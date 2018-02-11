@@ -81,7 +81,7 @@ namespace CamVehicle
                 );
 
             var contourIndex = 0;
-            var previewsArea = 4000;
+            var previewsArea = 0.0;
             var cars = new List<Rect>();
             while ((contourIndex >= 0) && (contours.Length >= 0))
             {
@@ -91,7 +91,7 @@ namespace CamVehicle
                 if (boundingRectArea > previewsArea)
                 {
                     cars.Add(boundingRect);
-                    Cv2.Rectangle(matFrame, new Point(boundingRect.X, boundingRect.Y), new Point(boundingRect.X + boundingRect.Width, boundingRect.Y + boundingRect.Height), new Scalar(0, 255, 0));
+                    //Cv2.Rectangle(matFrame, new Point(boundingRect.X, boundingRect.Y), new Point(boundingRect.X + boundingRect.Width, boundingRect.Y + boundingRect.Height), new Scalar(0, 255, 0));
                 }
                 contourIndex = hierarchyIndexes[contourIndex].Next;
             }

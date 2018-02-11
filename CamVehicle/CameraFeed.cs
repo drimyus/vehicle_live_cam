@@ -20,9 +20,7 @@ namespace CamVehicle
         int uSelectedCam;
         string strCamFeed;
 
-        string strProtocal, strUserName, strPassword, strIP, strPort, strUrlTail, strChannel, strSubType;
-
-        
+        string[] liIPcamModels = {@"DAHUA", @"VIMICRO"};
 
         public CameraFeed()
         {
@@ -31,18 +29,10 @@ namespace CamVehicle
             strCamFeed = "";
             uSelectedCam = -1;
 
-            strProtocal = "rtsp";
-            strUserName = "admin";
-            strPassword = "admin";
-            strIP = txtBoxIPAddress.Text; // "192.168.1.141";
-            strPort = "554";            
-            strChannel = "1";
-            strSubType = "0";
+            
+            
 
-
-            radioWeb.Checked = true;
-            radioIP.Checked = false;
-
+            // WebCamera comboBox setting
             uLength = chkLiBoxCameras.Items.Count;
             for (int i = 0; i < uLength; i++)
             {
@@ -78,20 +68,129 @@ namespace CamVehicle
                 }
             }
 
+            //... WebCamera comboBox setting
+            for( int i = 0; i < liIPcamModels.Length; i++)
+            {
+                cmbBoxModel.Items.Insert(i, liIPcamModels[i]);
+            }
+        }
+
+        private void set_WebcamGroup_Prop(bool bflag)
+        {
+            radioWeb.Checked = bflag;
+            chkLiBoxCameras.Enabled = bflag;
+        }
+
+        private void set_IPcamGroup_Prop(bool bflag)
+        {
+            radioIP.Checked = bflag;
+
+            radioUnknown.Enabled = bflag;
+            radioUnknown.Checked = false;         
+            set_UnknowncamGroup_Prop(false);
+
+            radioKnown.Enabled = bflag;
+            radioKnown.Checked = false;
+            set_KnowncamGroup_Prop(false);
+
 
         }
+        private void set_KnowncamGroup_Prop(bool bflag)
+        {
+            txtBoxIPAddress.Enabled = bflag;
+            cmbBoxModel.Enabled = bflag;
+        }
+        private void set_UnknowncamGroup_Prop(bool bflag)
+        {
+            txtBoxUrl.Enabled = bflag;
+        }
+        
+
+        private void CameraFeed_Load(object sender, EventArgs e)
+        {
+            set_WebcamGroup_Prop(true);
+            set_IPcamGroup_Prop(false);
+        }
+
+
+
+
+        private void radioWeb_CheckedChanged(object sender, EventArgs e)
+        {
+            set_WebcamGroup_Prop(radioWeb.Checked);
+            set_IPcamGroup_Prop(!radioWeb.Checked);
+        }
+        private void radioIP_CheckedChanged(object sender, EventArgs e)
+        {
+            set_WebcamGroup_Prop(!radioIP.Checked);
+            set_IPcamGroup_Prop(radioIP.Checked);
+        }
+        private void radioKnown_CheckedChanged(object sender, EventArgs e)
+        {
+            set_KnowncamGroup_Prop(radioKnown.Checked);
+            set_UnknowncamGroup_Prop(!radioKnown.Checked);
+        }
+
+        private void radioUnknown_CheckedChanged(object sender, EventArgs e)
+        {
+            set_KnowncamGroup_Prop(!radioUnknown.Checked);
+            set_UnknowncamGroup_Prop(radioUnknown.Checked);
+        }
+
+        
+
+
+
+        private string get_IPcamUrl()
+        {
+            string strUrl;
+            if (radioKnown.Checked)            
+                if (cmbBoxModel.SelectedIndex == 0)  // DAHUA
+                {
+                    var strProtocal = "rtsp://";
+                    var strUserName = "admin" + ":";
+                    var strPassword = "admin" + "@";
+                    var strIP = txtBoxIPAddress.Text + ":";
+                    var strPort = 554.ToString() + "/cam/realmonitor?";
+                    var strChannel = "channel=" + "1" + "&";
+                    var strSubType = "subtype=" + "0";
+
+                    // rtsp://admin:admin@00.00.00.00:554/cam/realmonitor?channel=1&subtype=0
+                    strUrl = strProtocal + strUserName + strPassword + strIP + strPort + strChannel + strSubType;
+                
+                }
+                else // if (cmbBoxModel.SelectedIndex == 0)  // VIMICRO
+                {
+                    var strProtocal = "rtsp://";
+                    var strIP = txtBoxIPAddress.Text + "/";
+                    var strType = "type=" + 0.ToString() + "&";
+                    var strId = "id=" + 1.ToString() + "&";
+                    var strUser = "user=" + "admin" + "&";
+                    var strPassword = "password=" + "123456";
+
+                    // rtsp://197.0.187.15/type=0&id=1&user=admin&password=123456                
+                    strUrl = strProtocal + strIP + strType + strId + strUser + strPassword;                
+                }
+            else  // if (radioUnknown.checked)
+            {
+                strUrl = txtBoxUrl.Text;
+            }
+            return strUrl;
+            
+        }
+
+
 
         private void txtBoxIPAddress_TextChanged(object sender, EventArgs e)
         {
-            strIP = txtBoxIPAddress.Text;
+            strCamFeed = get_IPcamUrl();
+            txtBoxKnownUrl.Text = strCamFeed;
         }
-
-
+        
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (strCamFeed != "")
-            {
-                uSelectedCam = chkLiBoxCameras.SelectedIndex;
+            {                
                 this.Hide();
             }
             else
@@ -117,18 +216,25 @@ namespace CamVehicle
             }                        
         }
 
-        private void radioWeb_CheckedChanged(object sender, EventArgs e)
+        private void cmbBoxModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioWeb.Checked){
-                radioIP.Checked = false;}
-        }
-        private void radioIP_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioIP.Checked) {
-                radioWeb.Checked = false;}
+            strCamFeed = get_IPcamUrl();
+            txtBoxKnownUrl.Text = strCamFeed;
         }
 
-        public void Dispose()
+
+
+
+
+
+
+
+
+
+
+
+
+        public new void Dispose()
         {
             GC.SuppressFinalize(this);
         }
@@ -146,20 +252,18 @@ namespace CamVehicle
                     cap.Dispose();
                     if (uFrameWidth == 0)
                     {
-                        MessageBox.Show("Cannot Connect WebCamera " + strCamFeed + "!");
-                        strCamFeed = "";
+                        MessageBox.Show("ERROR! Web Camera: " + strCamFeed);
+                        strCamFeed = uSelectedCam.ToString();
                     }
                     else
                     {
-                        lblCamerFeed.Text = "Success! Web Camera ID: " + uSelectedCam.ToString();
+                        MessageBox.Show("Success! Web Camera: " + uSelectedCam.ToString());
                         strCamFeed = uSelectedCam.ToString();
                     }
-
-
                     
                 }
                 catch (Exception ex){
-                    MessageBox.Show("Cannot Connect WebCamera " + strCamFeed + "!");
+                    MessageBox.Show("ERROR! Web Camera: " + uSelectedCam.ToString());
                     strCamFeed = "";
                 }                
 
@@ -168,8 +272,7 @@ namespace CamVehicle
             {
                 try
                 {
-                    strIP = txtBoxIPAddress.Text;
-                    strCamFeed = strProtocal + "://" + strUserName + ":" + strPassword + "@" + strIP + ":" + strPort + "/cam/realmonitor?" + "channel=" + strChannel + "&" + "subtype=" + strSubType;
+                    strCamFeed = get_IPcamUrl();
 
                     VideoCapture cap;
                     cap = VideoCapture.FromFile(strCamFeed);                    
@@ -178,24 +281,39 @@ namespace CamVehicle
 
                     if (uFrameWidth == 0)
                     {
-                        MessageBox.Show("Cannot Connect WebCamera " + strIP + "!");
+                        MessageBox.Show("Error! IP Camera:" + strCamFeed);
                         strCamFeed = "";
                     }
                     else
                     {
-                        lblCamerFeed.Text = "Success! IP Camera Address: " + strIP;
+                        MessageBox.Show("Success! IP Camera: " + strCamFeed);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Cannot Connect WebCamera " + strIP + "!");
+                    MessageBox.Show("ERROR! IP Camera: " + strCamFeed);
                     strCamFeed = "";
                 }                
+            }
+
+            if (strCamFeed == "")
+            {
+                chkBoxConnectCheck.Checked = false;
+                chkBoxConnectCheck.Text = "Error !";
+            }
+            else
+            {
+                chkBoxConnectCheck.Checked = true;
+                chkBoxConnectCheck.Text = "Success !";
             }
 
 
         }
 
-
+        private void txtBoxUrl_TextChanged(object sender, EventArgs e)
+        {
+            strCamFeed = txtBoxUrl.Text;
+        }
+                
     }
 }
