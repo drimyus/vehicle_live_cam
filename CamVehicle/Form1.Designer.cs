@@ -52,13 +52,13 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnSetting = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnROI = new System.Windows.Forms.Button();
+            this.colHeadChannel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeadFeedType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeadEvent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeadTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeadObjID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeadVType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -128,7 +128,7 @@
             // btnStart
             // 
             this.btnStart.Image = ((System.Drawing.Image)(resources.GetObject("btnStart.Image")));
-            this.btnStart.Location = new System.Drawing.Point(555, 27);
+            this.btnStart.Location = new System.Drawing.Point(558, 27);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(56, 46);
             this.btnStart.TabIndex = 3;
@@ -140,7 +140,7 @@
             // btnStop
             // 
             this.btnStop.Image = ((System.Drawing.Image)(resources.GetObject("btnStop.Image")));
-            this.btnStop.Location = new System.Drawing.Point(613, 27);
+            this.btnStop.Location = new System.Drawing.Point(616, 27);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(56, 46);
             this.btnStop.TabIndex = 4;
@@ -212,7 +212,7 @@
             // button7
             // 
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
-            this.button7.Location = new System.Drawing.Point(456, 27);
+            this.button7.Location = new System.Drawing.Point(729, 27);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(56, 46);
             this.button7.TabIndex = 12;
@@ -226,23 +226,22 @@
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(132, 79);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(702, 426);
+            this.pictureBox1.Size = new System.Drawing.Size(818, 509);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // listView2
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader7,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.listView2.Location = new System.Drawing.Point(840, 79);
+            this.colHeadChannel,
+            this.colHeadFeedType,
+            this.colHeadEvent,
+            this.colHeadTime,
+            this.colHeadObjID,
+            this.colHeadVType});
+            this.listView2.Location = new System.Drawing.Point(956, 79);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(373, 426);
+            this.listView2.Size = new System.Drawing.Size(257, 509);
             this.listView2.TabIndex = 14;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -251,14 +250,14 @@
             // 
             this.listView1.Location = new System.Drawing.Point(12, 79);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(114, 304);
+            this.listView1.Size = new System.Drawing.Size(114, 387);
             this.listView1.TabIndex = 15;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(12, 389);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 472);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(114, 116);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -277,44 +276,48 @@
             this.btnSetting.UseVisualStyleBackColor = true;
             this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
-            // columnHeader1
+            // btnROI
             // 
-            this.columnHeader1.Text = "Channel";
-            this.columnHeader1.Width = 67;
+            this.btnROI.Image = ((System.Drawing.Image)(resources.GetObject("btnROI.Image")));
+            this.btnROI.Location = new System.Drawing.Point(459, 27);
+            this.btnROI.Name = "btnROI";
+            this.btnROI.Size = new System.Drawing.Size(56, 46);
+            this.btnROI.TabIndex = 19;
+            this.btnROI.Text = "ROI";
+            this.btnROI.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnROI.UseVisualStyleBackColor = true;
+            this.btnROI.Click += new System.EventHandler(this.btnROI_Click);
             // 
-            // columnHeader2
+            // colHeadChannel
             // 
-            this.columnHeader2.Text = "Type";
-            this.columnHeader2.Width = 69;
+            this.colHeadChannel.Text = "Channel";
             // 
-            // columnHeader3
+            // colHeadFeedType
             // 
-            this.columnHeader3.Text = "Origin";
-            this.columnHeader3.Width = 66;
+            this.colHeadFeedType.Text = "Type";
             // 
-            // columnHeader4
+            // colHeadEvent
             // 
-            this.columnHeader4.Text = "Rule Name";
-            this.columnHeader4.Width = 75;
+            this.colHeadEvent.Text = "Event";
             // 
-            // columnHeader5
+            // colHeadTime
             // 
-            this.columnHeader5.Text = "Time";
+            this.colHeadTime.Text = "Time";
             // 
-            // columnHeader6
+            // colHeadObjID
             // 
-            this.columnHeader6.Text = "Object ID";
+            this.colHeadObjID.Text = "Object ID";
             // 
-            // columnHeader7
+            // colHeadVType
             // 
-            this.columnHeader7.DisplayIndex = 6;
-            this.columnHeader7.Text = "Event";
+            this.colHeadVType.Text = "VehicleType";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1225, 513);
+            this.ClientSize = new System.Drawing.Size(1225, 600);
+            this.Controls.Add(this.btnROI);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listView1);
@@ -369,13 +372,13 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.Button btnROI;
+        private System.Windows.Forms.ColumnHeader colHeadChannel;
+        private System.Windows.Forms.ColumnHeader colHeadFeedType;
+        private System.Windows.Forms.ColumnHeader colHeadEvent;
+        private System.Windows.Forms.ColumnHeader colHeadTime;
+        private System.Windows.Forms.ColumnHeader colHeadObjID;
+        private System.Windows.Forms.ColumnHeader colHeadVType;
     }
 }
 
