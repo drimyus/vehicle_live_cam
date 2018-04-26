@@ -49,16 +49,16 @@
             this.button7 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btnSetting = new System.Windows.Forms.Button();
-            this.btnROI = new System.Windows.Forms.Button();
             this.colHeadChannel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHeadFeedType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHeadEvent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHeadTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHeadObjID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colHeadVType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.btnROI = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -222,6 +222,9 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(132, 79);
@@ -229,9 +232,12 @@
             this.pictureBox1.Size = new System.Drawing.Size(818, 509);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Resize += new System.EventHandler(this.pictureBox1_Resize);
             // 
             // listView2
             // 
+            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colHeadChannel,
             this.colHeadFeedType,
@@ -246,8 +252,34 @@
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
             // 
+            // colHeadChannel
+            // 
+            this.colHeadChannel.Text = "Channel";
+            // 
+            // colHeadFeedType
+            // 
+            this.colHeadFeedType.Text = "Type";
+            // 
+            // colHeadEvent
+            // 
+            this.colHeadEvent.Text = "Event";
+            // 
+            // colHeadTime
+            // 
+            this.colHeadTime.Text = "Time";
+            // 
+            // colHeadObjID
+            // 
+            this.colHeadObjID.Text = "Object ID";
+            // 
+            // colHeadVType
+            // 
+            this.colHeadVType.Text = "VehicleType";
+            // 
             // listView1
             // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listView1.Location = new System.Drawing.Point(12, 79);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(114, 387);
@@ -256,6 +288,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(12, 472);
             this.pictureBox2.Name = "pictureBox2";
@@ -288,34 +321,11 @@
             this.btnROI.UseVisualStyleBackColor = true;
             this.btnROI.Click += new System.EventHandler(this.btnROI_Click);
             // 
-            // colHeadChannel
-            // 
-            this.colHeadChannel.Text = "Channel";
-            // 
-            // colHeadFeedType
-            // 
-            this.colHeadFeedType.Text = "Type";
-            // 
-            // colHeadEvent
-            // 
-            this.colHeadEvent.Text = "Event";
-            // 
-            // colHeadTime
-            // 
-            this.colHeadTime.Text = "Time";
-            // 
-            // colHeadObjID
-            // 
-            this.colHeadObjID.Text = "Object ID";
-            // 
-            // colHeadVType
-            // 
-            this.colHeadVType.Text = "VehicleType";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1225, 600);
             this.Controls.Add(this.btnROI);
             this.Controls.Add(this.btnSetting);
@@ -334,11 +344,12 @@
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CamVehicle";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResizeBegin += new System.EventHandler(this.Form1_ResizeBegin);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

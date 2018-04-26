@@ -29,14 +29,22 @@
         private void InitializeComponent()
         {
             this.groupBoxSave = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBoxPort = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBoxHost = new System.Windows.Forms.TextBox();
+            this.chkBoxExport = new System.Windows.Forms.CheckBox();
             this.lblSavePath = new System.Windows.Forms.Label();
             this.txtBoxSavePath = new System.Windows.Forms.TextBox();
             this.btnOpenSaveDlg = new System.Windows.Forms.Button();
             this.chkBoxSave = new System.Windows.Forms.CheckBox();
             this.groupBoxDetector = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtBoxSameRect = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.chkBoxBlob = new System.Windows.Forms.CheckBox();
             this.chkBoxCascade = new System.Windows.Forms.CheckBox();
+            this.chkBoxShowRect = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxMinSzW = new System.Windows.Forms.TextBox();
@@ -59,6 +67,11 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkBoxShowROI = new System.Windows.Forms.CheckBox();
+            this.txtBoxROIFntSZ = new System.Windows.Forms.TextBox();
+            this.txtBoxRectFntSZ = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblROIColorB = new System.Windows.Forms.Label();
@@ -77,32 +90,71 @@
             // 
             // groupBoxSave
             // 
-            this.groupBoxSave.Controls.Add(this.checkBox2);
+            this.groupBoxSave.Controls.Add(this.label2);
+            this.groupBoxSave.Controls.Add(this.txtBoxPort);
+            this.groupBoxSave.Controls.Add(this.label1);
+            this.groupBoxSave.Controls.Add(this.txtBoxHost);
+            this.groupBoxSave.Controls.Add(this.chkBoxExport);
             this.groupBoxSave.Controls.Add(this.lblSavePath);
             this.groupBoxSave.Controls.Add(this.txtBoxSavePath);
             this.groupBoxSave.Controls.Add(this.btnOpenSaveDlg);
             this.groupBoxSave.Controls.Add(this.chkBoxSave);
-            this.groupBoxSave.Location = new System.Drawing.Point(12, 78);
+            this.groupBoxSave.Location = new System.Drawing.Point(12, 100);
             this.groupBoxSave.Name = "groupBoxSave";
             this.groupBoxSave.Size = new System.Drawing.Size(461, 152);
             this.groupBoxSave.TabIndex = 0;
             this.groupBoxSave.TabStop = false;
             this.groupBoxSave.Text = "Output";
             // 
-            // checkBox2
+            // label2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(24, 107);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(56, 17);
-            this.checkBox2.TabIndex = 11;
-            this.checkBox2.Text = "Export";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(307, 116);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Port:";
+            // 
+            // txtBoxPort
+            // 
+            this.txtBoxPort.Location = new System.Drawing.Point(342, 113);
+            this.txtBoxPort.Name = "txtBoxPort";
+            this.txtBoxPort.Size = new System.Drawing.Size(66, 20);
+            this.txtBoxPort.TabIndex = 14;
+            this.txtBoxPort.TextChanged += new System.EventHandler(this.txtBoxPort_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(49, 116);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Host:";
+            // 
+            // txtBoxHost
+            // 
+            this.txtBoxHost.Location = new System.Drawing.Point(84, 113);
+            this.txtBoxHost.Name = "txtBoxHost";
+            this.txtBoxHost.Size = new System.Drawing.Size(202, 20);
+            this.txtBoxHost.TabIndex = 12;
+            this.txtBoxHost.TextChanged += new System.EventHandler(this.txtBoxHost_TextChanged);
+            // 
+            // chkBoxExport
+            // 
+            this.chkBoxExport.AutoSize = true;
+            this.chkBoxExport.Location = new System.Drawing.Point(24, 90);
+            this.chkBoxExport.Name = "chkBoxExport";
+            this.chkBoxExport.Size = new System.Drawing.Size(56, 17);
+            this.chkBoxExport.TabIndex = 11;
+            this.chkBoxExport.Text = "Export";
+            this.chkBoxExport.UseVisualStyleBackColor = true;
+            this.chkBoxExport.CheckedChanged += new System.EventHandler(this.chkBoxExport_CheckedChanged);
             // 
             // lblSavePath
             // 
             this.lblSavePath.AutoSize = true;
-            this.lblSavePath.Location = new System.Drawing.Point(48, 55);
+            this.lblSavePath.Location = new System.Drawing.Point(49, 55);
             this.lblSavePath.Name = "lblSavePath";
             this.lblSavePath.Size = new System.Drawing.Size(32, 13);
             this.lblSavePath.TabIndex = 3;
@@ -138,19 +190,48 @@
             // 
             // groupBoxDetector
             // 
+            this.groupBoxDetector.Controls.Add(this.label12);
+            this.groupBoxDetector.Controls.Add(this.txtBoxSameRect);
+            this.groupBoxDetector.Controls.Add(this.label6);
             this.groupBoxDetector.Controls.Add(this.chkBoxBlob);
             this.groupBoxDetector.Controls.Add(this.chkBoxCascade);
             this.groupBoxDetector.Location = new System.Drawing.Point(12, 12);
             this.groupBoxDetector.Name = "groupBoxDetector";
-            this.groupBoxDetector.Size = new System.Drawing.Size(461, 60);
+            this.groupBoxDetector.Size = new System.Drawing.Size(461, 82);
             this.groupBoxDetector.TabIndex = 1;
             this.groupBoxDetector.TabStop = false;
             this.groupBoxDetector.Text = "Detector";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(217, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Threshold Rect:";
+            // 
+            // txtBoxSameRect
+            // 
+            this.txtBoxSameRect.Location = new System.Drawing.Point(288, 37);
+            this.txtBoxSameRect.Name = "txtBoxSameRect";
+            this.txtBoxSameRect.Size = new System.Drawing.Size(115, 20);
+            this.txtBoxSameRect.TabIndex = 4;
+            this.txtBoxSameRect.TextChanged += new System.EventHandler(this.txtBoxSameRect_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Mode:";
+            // 
             // chkBoxBlob
             // 
             this.chkBoxBlob.AutoSize = true;
-            this.chkBoxBlob.Location = new System.Drawing.Point(123, 28);
+            this.chkBoxBlob.Location = new System.Drawing.Point(52, 32);
             this.chkBoxBlob.Name = "chkBoxBlob";
             this.chkBoxBlob.Size = new System.Drawing.Size(47, 17);
             this.chkBoxBlob.TabIndex = 1;
@@ -161,13 +242,24 @@
             // chkBoxCascade
             // 
             this.chkBoxCascade.AutoSize = true;
-            this.chkBoxCascade.Location = new System.Drawing.Point(281, 28);
+            this.chkBoxCascade.Location = new System.Drawing.Point(52, 55);
             this.chkBoxCascade.Name = "chkBoxCascade";
             this.chkBoxCascade.Size = new System.Drawing.Size(68, 17);
             this.chkBoxCascade.TabIndex = 0;
             this.chkBoxCascade.Text = "Cascade";
             this.chkBoxCascade.UseVisualStyleBackColor = true;
             this.chkBoxCascade.CheckedChanged += new System.EventHandler(this.chkBoxCascade_CheckedChanged);
+            // 
+            // chkBoxShowRect
+            // 
+            this.chkBoxShowRect.AutoSize = true;
+            this.chkBoxShowRect.Location = new System.Drawing.Point(80, 35);
+            this.chkBoxShowRect.Name = "chkBoxShowRect";
+            this.chkBoxShowRect.Size = new System.Drawing.Size(79, 17);
+            this.chkBoxShowRect.TabIndex = 2;
+            this.chkBoxShowRect.Text = "Show Rect";
+            this.chkBoxShowRect.UseVisualStyleBackColor = true;
+            this.chkBoxShowRect.CheckedChanged += new System.EventHandler(this.chkBoxShowRect_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -187,9 +279,9 @@
             this.groupBox3.Controls.Add(this.lblClass3Sz);
             this.groupBox3.Controls.Add(this.lblClass2Sz);
             this.groupBox3.Controls.Add(this.lblClass1Sz);
-            this.groupBox3.Location = new System.Drawing.Point(12, 355);
+            this.groupBox3.Location = new System.Drawing.Point(12, 422);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(461, 153);
+            this.groupBox3.Size = new System.Drawing.Size(461, 130);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Classifier Size: H x W";
@@ -197,7 +289,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(314, 34);
+            this.label3.Location = new System.Drawing.Point(272, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(12, 13);
             this.label3.TabIndex = 19;
@@ -205,22 +297,24 @@
             // 
             // txtBoxMinSzW
             // 
-            this.txtBoxMinSzW.Location = new System.Drawing.Point(262, 30);
+            this.txtBoxMinSzW.Location = new System.Drawing.Point(220, 19);
             this.txtBoxMinSzW.Name = "txtBoxMinSzW";
             this.txtBoxMinSzW.Size = new System.Drawing.Size(35, 20);
             this.txtBoxMinSzW.TabIndex = 18;
+            this.txtBoxMinSzW.TextChanged += new System.EventHandler(this.txtBoxMinSzW_TextChanged);
             // 
             // txtBoxMinSzH
             // 
-            this.txtBoxMinSzH.Location = new System.Drawing.Point(340, 30);
+            this.txtBoxMinSzH.Location = new System.Drawing.Point(298, 19);
             this.txtBoxMinSzH.Name = "txtBoxMinSzH";
             this.txtBoxMinSzH.Size = new System.Drawing.Size(35, 20);
             this.txtBoxMinSzH.TabIndex = 17;
+            this.txtBoxMinSzH.TextChanged += new System.EventHandler(this.txtBoxMinSzH_TextChanged);
             // 
             // lblMinSize
             // 
             this.lblMinSize.AutoSize = true;
-            this.lblMinSize.Location = new System.Drawing.Point(131, 34);
+            this.lblMinSize.Location = new System.Drawing.Point(89, 23);
             this.lblMinSize.Name = "lblMinSize";
             this.lblMinSize.Size = new System.Drawing.Size(51, 13);
             this.lblMinSize.TabIndex = 16;
@@ -229,7 +323,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(314, 112);
+            this.label9.Location = new System.Drawing.Point(272, 101);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(12, 13);
             this.label9.TabIndex = 15;
@@ -237,7 +331,7 @@
             // 
             // txtBoxClass3_w
             // 
-            this.txtBoxClass3_w.Location = new System.Drawing.Point(262, 108);
+            this.txtBoxClass3_w.Location = new System.Drawing.Point(220, 97);
             this.txtBoxClass3_w.Name = "txtBoxClass3_w";
             this.txtBoxClass3_w.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass3_w.TabIndex = 14;
@@ -245,7 +339,7 @@
             // 
             // txtBoxClass3_h
             // 
-            this.txtBoxClass3_h.Location = new System.Drawing.Point(340, 108);
+            this.txtBoxClass3_h.Location = new System.Drawing.Point(298, 97);
             this.txtBoxClass3_h.Name = "txtBoxClass3_h";
             this.txtBoxClass3_h.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass3_h.TabIndex = 13;
@@ -254,7 +348,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(314, 86);
+            this.label8.Location = new System.Drawing.Point(272, 75);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(12, 13);
             this.label8.TabIndex = 12;
@@ -262,7 +356,7 @@
             // 
             // txtBoxClass2_w
             // 
-            this.txtBoxClass2_w.Location = new System.Drawing.Point(262, 82);
+            this.txtBoxClass2_w.Location = new System.Drawing.Point(220, 71);
             this.txtBoxClass2_w.Name = "txtBoxClass2_w";
             this.txtBoxClass2_w.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass2_w.TabIndex = 11;
@@ -270,7 +364,7 @@
             // 
             // txtBoxClass2_h
             // 
-            this.txtBoxClass2_h.Location = new System.Drawing.Point(340, 82);
+            this.txtBoxClass2_h.Location = new System.Drawing.Point(298, 71);
             this.txtBoxClass2_h.Name = "txtBoxClass2_h";
             this.txtBoxClass2_h.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass2_h.TabIndex = 10;
@@ -279,7 +373,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(314, 60);
+            this.label7.Location = new System.Drawing.Point(272, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(12, 13);
             this.label7.TabIndex = 9;
@@ -287,7 +381,7 @@
             // 
             // txtBoxClass1_w
             // 
-            this.txtBoxClass1_w.Location = new System.Drawing.Point(262, 56);
+            this.txtBoxClass1_w.Location = new System.Drawing.Point(220, 45);
             this.txtBoxClass1_w.Name = "txtBoxClass1_w";
             this.txtBoxClass1_w.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass1_w.TabIndex = 8;
@@ -295,7 +389,7 @@
             // 
             // txtBoxClass1_h
             // 
-            this.txtBoxClass1_h.Location = new System.Drawing.Point(340, 56);
+            this.txtBoxClass1_h.Location = new System.Drawing.Point(298, 45);
             this.txtBoxClass1_h.Name = "txtBoxClass1_h";
             this.txtBoxClass1_h.Size = new System.Drawing.Size(35, 20);
             this.txtBoxClass1_h.TabIndex = 7;
@@ -304,7 +398,7 @@
             // lblClass3Sz
             // 
             this.lblClass3Sz.AutoSize = true;
-            this.lblClass3Sz.Location = new System.Drawing.Point(131, 112);
+            this.lblClass3Sz.Location = new System.Drawing.Point(89, 101);
             this.lblClass3Sz.Name = "lblClass3Sz";
             this.lblClass3Sz.Size = new System.Drawing.Size(104, 13);
             this.lblClass3Sz.TabIndex = 2;
@@ -313,7 +407,7 @@
             // lblClass2Sz
             // 
             this.lblClass2Sz.AutoSize = true;
-            this.lblClass2Sz.Location = new System.Drawing.Point(131, 86);
+            this.lblClass2Sz.Location = new System.Drawing.Point(89, 75);
             this.lblClass2Sz.Name = "lblClass2Sz";
             this.lblClass2Sz.Size = new System.Drawing.Size(69, 13);
             this.lblClass2Sz.TabIndex = 1;
@@ -322,7 +416,7 @@
             // lblClass1Sz
             // 
             this.lblClass1Sz.AutoSize = true;
-            this.lblClass1Sz.Location = new System.Drawing.Point(131, 60);
+            this.lblClass1Sz.Location = new System.Drawing.Point(89, 49);
             this.lblClass1Sz.Name = "lblClass1Sz";
             this.lblClass1Sz.Size = new System.Drawing.Size(86, 13);
             this.lblClass1Sz.TabIndex = 0;
@@ -330,7 +424,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(316, 514);
+            this.btnOK.Location = new System.Drawing.Point(317, 558);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 3;
@@ -340,7 +434,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(397, 514);
+            this.btnCancel.Location = new System.Drawing.Point(398, 558);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -349,6 +443,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkBoxShowROI);
+            this.groupBox2.Controls.Add(this.txtBoxROIFntSZ);
+            this.groupBox2.Controls.Add(this.txtBoxRectFntSZ);
+            this.groupBox2.Controls.Add(this.chkBoxShowRect);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.lblROIColorB);
@@ -359,17 +459,62 @@
             this.groupBox2.Controls.Add(this.lblRectColorG);
             this.groupBox2.Controls.Add(this.lblRectColorR);
             this.groupBox2.Controls.Add(this.btnRectColor);
-            this.groupBox2.Location = new System.Drawing.Point(12, 236);
+            this.groupBox2.Location = new System.Drawing.Point(12, 258);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(461, 113);
+            this.groupBox2.Size = new System.Drawing.Size(461, 158);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Color";
+            this.groupBox2.Text = "Label";
+            // 
+            // chkBoxShowROI
+            // 
+            this.chkBoxShowROI.AutoSize = true;
+            this.chkBoxShowROI.Location = new System.Drawing.Point(296, 34);
+            this.chkBoxShowROI.Name = "chkBoxShowROI";
+            this.chkBoxShowROI.Size = new System.Drawing.Size(80, 17);
+            this.chkBoxShowROI.TabIndex = 4;
+            this.chkBoxShowROI.Text = "Show ROIs";
+            this.chkBoxShowROI.UseVisualStyleBackColor = true;
+            this.chkBoxShowROI.CheckedChanged += new System.EventHandler(this.chkBoxShowROI_CheckedChanged);
+            // 
+            // txtBoxROIFntSZ
+            // 
+            this.txtBoxROIFntSZ.Location = new System.Drawing.Point(349, 123);
+            this.txtBoxROIFntSZ.Name = "txtBoxROIFntSZ";
+            this.txtBoxROIFntSZ.Size = new System.Drawing.Size(35, 20);
+            this.txtBoxROIFntSZ.TabIndex = 24;
+            this.txtBoxROIFntSZ.TextChanged += new System.EventHandler(this.txtBoxROIFntSZ_TextChanged);
+            // 
+            // txtBoxRectFntSZ
+            // 
+            this.txtBoxRectFntSZ.Location = new System.Drawing.Point(139, 123);
+            this.txtBoxRectFntSZ.Name = "txtBoxRectFntSZ";
+            this.txtBoxRectFntSZ.Size = new System.Drawing.Size(35, 20);
+            this.txtBoxRectFntSZ.TabIndex = 23;
+            this.txtBoxRectFntSZ.TextChanged += new System.EventHandler(this.txtBoxRectFntSZ_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(294, 127);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Font Size";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(79, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Font Size:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(257, 33);
+            this.label11.Location = new System.Drawing.Point(261, 35);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 20;
@@ -378,7 +523,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(42, 33);
+            this.label10.Location = new System.Drawing.Point(41, 36);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(33, 13);
             this.label10.TabIndex = 19;
@@ -387,7 +532,7 @@
             // lblROIColorB
             // 
             this.lblROIColorB.AutoSize = true;
-            this.lblROIColorB.Location = new System.Drawing.Point(374, 79);
+            this.lblROIColorB.Location = new System.Drawing.Point(376, 93);
             this.lblROIColorB.Name = "lblROIColorB";
             this.lblROIColorB.Size = new System.Drawing.Size(20, 13);
             this.lblROIColorB.TabIndex = 18;
@@ -396,7 +541,7 @@
             // lblROIColorG
             // 
             this.lblROIColorG.AutoSize = true;
-            this.lblROIColorG.Location = new System.Drawing.Point(374, 56);
+            this.lblROIColorG.Location = new System.Drawing.Point(376, 78);
             this.lblROIColorG.Name = "lblROIColorG";
             this.lblROIColorG.Size = new System.Drawing.Size(21, 13);
             this.lblROIColorG.TabIndex = 17;
@@ -405,7 +550,7 @@
             // lblROIColorR
             // 
             this.lblROIColorR.AutoSize = true;
-            this.lblROIColorR.Location = new System.Drawing.Point(374, 33);
+            this.lblROIColorR.Location = new System.Drawing.Point(376, 63);
             this.lblROIColorR.Name = "lblROIColorR";
             this.lblROIColorR.Size = new System.Drawing.Size(21, 13);
             this.lblROIColorR.TabIndex = 16;
@@ -413,7 +558,7 @@
             // 
             // btnROIColor
             // 
-            this.btnROIColor.Location = new System.Drawing.Point(292, 30);
+            this.btnROIColor.Location = new System.Drawing.Point(294, 62);
             this.btnROIColor.Name = "btnROIColor";
             this.btnROIColor.Size = new System.Drawing.Size(57, 43);
             this.btnROIColor.TabIndex = 15;
@@ -424,7 +569,7 @@
             // lblRectColorB
             // 
             this.lblRectColorB.AutoSize = true;
-            this.lblRectColorB.Location = new System.Drawing.Point(166, 79);
+            this.lblRectColorB.Location = new System.Drawing.Point(161, 93);
             this.lblRectColorB.Name = "lblRectColorB";
             this.lblRectColorB.Size = new System.Drawing.Size(20, 13);
             this.lblRectColorB.TabIndex = 14;
@@ -433,7 +578,7 @@
             // lblRectColorG
             // 
             this.lblRectColorG.AutoSize = true;
-            this.lblRectColorG.Location = new System.Drawing.Point(166, 56);
+            this.lblRectColorG.Location = new System.Drawing.Point(161, 78);
             this.lblRectColorG.Name = "lblRectColorG";
             this.lblRectColorG.Size = new System.Drawing.Size(21, 13);
             this.lblRectColorG.TabIndex = 13;
@@ -442,7 +587,7 @@
             // lblRectColorR
             // 
             this.lblRectColorR.AutoSize = true;
-            this.lblRectColorR.Location = new System.Drawing.Point(166, 33);
+            this.lblRectColorR.Location = new System.Drawing.Point(161, 63);
             this.lblRectColorR.Name = "lblRectColorR";
             this.lblRectColorR.Size = new System.Drawing.Size(21, 13);
             this.lblRectColorR.TabIndex = 12;
@@ -450,7 +595,7 @@
             // 
             // btnRectColor
             // 
-            this.btnRectColor.Location = new System.Drawing.Point(84, 30);
+            this.btnRectColor.Location = new System.Drawing.Point(79, 62);
             this.btnRectColor.Name = "btnRectColor";
             this.btnRectColor.Size = new System.Drawing.Size(57, 43);
             this.btnRectColor.TabIndex = 11;
@@ -462,7 +607,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 542);
+            this.ClientSize = new System.Drawing.Size(484, 589);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -512,7 +657,7 @@
         private System.Windows.Forms.Label lblClass2Sz;
         private System.Windows.Forms.Label lblClass1Sz;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chkBoxExport;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBoxMinSzW;
         private System.Windows.Forms.TextBox txtBoxMinSzH;
@@ -528,5 +673,18 @@
         private System.Windows.Forms.Label lblRectColorG;
         private System.Windows.Forms.Label lblRectColorR;
         private System.Windows.Forms.Button btnRectColor;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtBoxPort;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBoxHost;
+        private System.Windows.Forms.TextBox txtBoxROIFntSZ;
+        private System.Windows.Forms.TextBox txtBoxRectFntSZ;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkBoxShowRect;
+        private System.Windows.Forms.CheckBox chkBoxShowROI;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtBoxSameRect;
     }
 }

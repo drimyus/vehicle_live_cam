@@ -14,6 +14,9 @@ using System.Diagnostics;
 namespace CamVehicle
 {
     public partial class CameraFeed : Form, IDisposable
+        /// <summary>
+        ///  Form for camera feed setting
+        /// </summary>
     {
         int uLength;
         List<int> liEnabledCams = new List<int>();
@@ -28,10 +31,7 @@ namespace CamVehicle
 
             strCamFeed = "";
             uSelectedCam = -1;
-
             
-            
-
             // WebCamera comboBox setting
             uLength = chkLiBoxCameras.Items.Count;
             for (int i = 0; i < uLength; i++)
@@ -76,12 +76,18 @@ namespace CamVehicle
         }
 
         private void set_WebcamGroup_Prop(bool bflag)
+            ///<summary>
+            /// the radio button to select the webcamera
+            ///</summary>
         {
             radioWeb.Checked = bflag;
             chkLiBoxCameras.Enabled = bflag;
         }
 
         private void set_IPcamGroup_Prop(bool bflag)
+            ///<summary>
+            /// the radio button to select the ipcamera 
+            ///</summary>
         {
             radioIP.Checked = bflag;
 
@@ -96,24 +102,30 @@ namespace CamVehicle
 
         }
         private void set_KnowncamGroup_Prop(bool bflag)
+            ///<summary>
+            /// the radio button to select the camera with customized url known format(e.g. DAHUA)
+            ///</summary>
         {
             txtBoxIPAddress.Enabled = bflag;
             cmbBoxModel.Enabled = bflag;
         }
         private void set_UnknowncamGroup_Prop(bool bflag)
+            ///<summary>
+            /// the radio button to select the camera with customized url known format
+            ///</summary>
         {
             txtBoxUrl.Enabled = bflag;
         }
         
 
         private void CameraFeed_Load(object sender, EventArgs e)
+            ///<summary>
+            /// open the CameraFeed Setting Form
+            ///</summary>
         {
             set_WebcamGroup_Prop(true);
             set_IPcamGroup_Prop(false);
         }
-
-
-
 
         private void radioWeb_CheckedChanged(object sender, EventArgs e)
         {
@@ -137,11 +149,10 @@ namespace CamVehicle
             set_UnknowncamGroup_Prop(radioUnknown.Checked);
         }
 
-        
-
-
-
         private string get_IPcamUrl()
+            /// <summary>
+            /// generate the camera url with IP address and port number on known format
+            /// </summary>
         {
             string strUrl;
             if (radioKnown.Checked)            
@@ -182,12 +193,18 @@ namespace CamVehicle
 
 
         private void txtBoxIPAddress_TextChanged(object sender, EventArgs e)
+            ///<summary>
+            /// ip address of the IP camera 
+            ///</summary>
         {
             strCamFeed = get_IPcamUrl();
             txtBoxKnownUrl.Text = strCamFeed;
         }
         
         private void btnOK_Click(object sender, EventArgs e)
+            /// <summary>
+            /// save the settings of camera feed
+            /// </summary>
         {
             if (strCamFeed != "")
             {                
@@ -200,11 +217,13 @@ namespace CamVehicle
         }
 
         public string getCamFeed()
+            /// <summary> return the camera feed as a string </summary>
         {
             return strCamFeed;
         }
 
         private void chkLiBoxCameras_SelectedIndexChanged(object sender, EventArgs e)
+            /// <summary> select the webcamera with indexed list box </summary>
         {               
             int idx = chkLiBoxCameras.SelectedIndex;
             if (liEnabledCams.Contains(idx))
@@ -217,22 +236,11 @@ namespace CamVehicle
         }
 
         private void cmbBoxModel_SelectedIndexChanged(object sender, EventArgs e)
+            /// <summary> comboBox the ipcamera with urs </summary>
         {
             strCamFeed = get_IPcamUrl();
             txtBoxKnownUrl.Text = strCamFeed;
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         public new void Dispose()
         {
@@ -240,6 +248,10 @@ namespace CamVehicle
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
+            /// <summary> 
+            /// validate the camera connection 
+            /// read the first frame from the camera feed
+            /// </summary>
         {
             if (radioWeb.Checked)
             {
@@ -311,6 +323,7 @@ namespace CamVehicle
         }
 
         private void txtBoxUrl_TextChanged(object sender, EventArgs e)
+            /// <summary> set the url for ip camera</summary>
         {
             strCamFeed = txtBoxUrl.Text;
         }

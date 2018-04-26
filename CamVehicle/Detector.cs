@@ -9,6 +9,9 @@ using OpenCvSharp;
 namespace CamVehicle
 {
     class Detector
+        /// <summary>
+        /// functionalities for manage the detecting and checking the traffic events with ROI objects
+        /// </summary>
     {
         // cascade Detector settings
         CascadeClassifier cascade;
@@ -39,7 +42,11 @@ namespace CamVehicle
         }
         
         public List<Rect> proc(Mat matFrame)
-        {            
+            ///<summary>
+            /// detect the vehicles from the matFrame, using the OpenCV's Cascade detector
+            ///</summary>
+            /// <param name="matFrame">input cvmat of frame</param>
+        {
             Cv2.CvtColor(matFrame, matGray, ColorConversionCodes.BGRA2GRAY);
             Cv2.EqualizeHist(matGray, matGray);
             
@@ -58,6 +65,10 @@ namespace CamVehicle
             return cars;
         }
         public List<Rect> proc2(Mat matFrame)
+            ///<summary>
+            /// detect the vehicles from the matFrame using the Blob detector
+            ///</summary>
+            /// <param name="matFrame">input cvmat of frame</param>
         {
             this.bckSub.Apply(matFrame, this.fgMask, 0.01);
             //Cv2.ImShow("mask", this.fgMask);
@@ -107,6 +118,15 @@ namespace CamVehicle
         
 
         public int disRect2Line(Rect r, OpenCvSharp.Point pt1, OpenCvSharp.Point pt2)
+            ///<summary> 
+            /// distance between rectangle and line
+            /// which is used for checking the traffic event (crossing line)
+            /// 
+            ///</summary>
+            /// <param name="pt1"> first endpoint of line</param>
+            /// <param name="pt2"> second endpoint of line</param>
+            /// <param name="r"> rectangle </param>
+
         {
             OpenCvSharp.Point pt = new OpenCvSharp.Point((int)(r.X + r.Width / 2), (int)(r.Y + r.Height / 2));
 
@@ -118,6 +138,11 @@ namespace CamVehicle
         }
 
         public int disRect2Rect(Rect r1, Rect r2)
+            /// <summary>
+            /// distance between two rects
+            /// </summary>
+            /// <param name="r1"> rect of vehicle </param>
+            /// <param name="r2"> rect of vehicle </param>
         {
             var d_x = (r1.X + r1.Width / 2) - (r2.X + r2.Width / 2);
             var d_y = (r1.Y + r1.Height / 2) - (r2.Y + r2.Height / 2);
@@ -125,7 +150,13 @@ namespace CamVehicle
         }
 
 
-        public bool isSameRects(Rect r1, Rect r2)
+        public bool isSameRects(Rect r1, Rect r2, double dThresh)
+            ///<summary>
+            /// check if the rects are same object or not, using the positon relation ship
+            ///</summary>
+            ///<param name="r1"> rect of object </param>
+            ///<param name="r2"> rect of object </param>
+            ///<param name="dThresh"> threshold of distance and size </param>
         {
             var sz1 = r1.Width * r1.Height;
             var sz2 = r2.Width * r2.Height;
@@ -133,13 +164,18 @@ namespace CamVehicle
             var sz_dis = Math.Abs(sz1 - sz2) * 2 / (sz1 + sz2);
             var cen_dis = disRect2Rect(r1, r2);
 
-            if ((cen_dis < ((r1.Width + r2.Width) / 2.5)) && (sz_dis < 0.3))
+            if ((cen_dis < ((r1.Width + r2.Width) * dThresh)) && (sz_dis < dThresh))
                 return true;
             else
                 return false;
         }
         
         public bool isBorderRect(Rect r, OpenCvSharp.Size matSz)
+            /// <summary> 
+            /// check if the object rect is located on edge of scene(which means disappear)
+            /// </summary>
+            /// <param name="r"> rect of object </param>
+            /// <param name="matSz"> size of input frame </param>
         {
             var padding = matSz.Height / 50;
             if (r.X > padding && (r.X + r.Width + padding) < matSz.Width && r.Y > padding && (r.Y + r.Height + padding) < matSz.Height)
@@ -149,6 +185,14 @@ namespace CamVehicle
         }
 
         public bool isCrossLine(Rect r1, Rect r2, List<OpenCvSharp.Point> roiLine)
+            /// <summary> 
+            /// check if the object is cross the line or not
+            /// </summary>
+            /// <param name="r1"> object rect preview positoin </param>
+            /// <param name="r2"> object rect current position </param>
+            /// <param name="roiLine"> line object </param>
+            /// 
+
         {
             var p1x = r1.X + r1.Width / 2;
             var p1y = r1.Y + r1.Height / 2;
@@ -173,7 +217,13 @@ namespace CamVehicle
 
         }
         public int checkAppearObject(Rect before, Rect after, OpenCvSharp.Size matSz)
-        {            
+            /// <summary>
+            /// check the object rect which is disappearing or appearing on edge location
+            /// </summary>
+            /// <param name="after">objecct rect current position</param>
+            /// <param name="before">object rect previews position</param>
+            /// <param name="matSz"> size of video frame </param>
+        {
             var bef = this.isBorderRect(before, matSz);
             var aft = this.isBorderRect(after, matSz);
 
